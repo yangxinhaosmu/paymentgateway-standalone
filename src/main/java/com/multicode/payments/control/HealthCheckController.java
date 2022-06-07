@@ -4,6 +4,7 @@ import com.multicode.payments.domain.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.*;
+import java.time.*;
 import java.util.*;
 
 @RestController
@@ -22,7 +23,7 @@ public class HealthCheckController {
         ccTransaction.setAmount(23.50);
         ccTransaction.setCountry("USA");
         ccTransaction.setCurrency("USD");
-        ccTransaction.setDate(new java.sql.Date(System.currentTimeMillis()));
+        ccTransaction.setDate(LocalDate.now());
         return ccTransaction;
     }
 

@@ -2,6 +2,7 @@ package com.multicode.payments.domain;
 
 import javax.persistence.*;
 import java.sql.*;
+import java.time.*;
 
 @Entity
 @Table(name = "cctransactions")
@@ -13,7 +14,7 @@ public class CreditCardTransaction {
     private Double amount;
     private String country;
     private String currency;
-    private Date date;
+    private LocalDate date;
 
     @Column(name = "order_id")
     private String orderId;
@@ -24,6 +25,22 @@ public class CreditCardTransaction {
     @Column(name = "tax_rate")
     private Double taxRate;
     private String type;
+
+    public CreditCardTransaction () {}
+
+    public CreditCardTransaction(String rawData) {
+        //(4823, -180.00, 'USA', 'USD', '2021-03-22 00:00:00', 'MANUAL', 0, 0, 'Refund')
+        String[] fields = rawData.split(",");
+        this.id = Integer.parseInt(fields[0].replace("(","").trim());
+        this.amount = Double.parseDouble(fields[1].trim());
+        this.country = fields[2].replaceAll("'", "").trim();
+        this.currency = fields[3].replaceAll("'", "").trim();
+        this.date = LocalDate.parse(fields[4].replaceAll("'", "").trim().split(" ")[0]);
+        this.orderId = fields[5].replaceAll("'", "").trim();
+        this.taxCode = Integer.parseInt(fields[6].replace("(","").trim());
+        this.taxRate = Double.parseDouble(fields[7].trim());
+        this.type = fields[8].replaceAll("'", "").replace(")", "").trim();
+    }
 
     public Integer getId() {
         return id;
@@ -57,11 +74,11 @@ public class CreditCardTransaction {
         this.currency = currency;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

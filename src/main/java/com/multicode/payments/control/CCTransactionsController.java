@@ -8,10 +8,11 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.time.*;
 import java.util.*;
 
 @RestController
-@RequestMapping("/api/cctransaction")
+@RequestMapping("/api/payment")
 @CrossOrigin
 public class CCTransactionsController {
 
@@ -52,7 +53,7 @@ public class CCTransactionsController {
 
     @PostMapping
     public CreditCardTransaction addTransaction(@RequestBody CreditCardTransaction newTransaction) {
-        newTransaction.setDate(new Date(System.currentTimeMillis()));
+        newTransaction.setDate(LocalDate.now());
         try {
             return service.saveTransaction(newTransaction);
         }
