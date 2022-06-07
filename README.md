@@ -18,7 +18,7 @@ Clients must include a header containing a 3 letter code for the requesting syst
 This page can be used to generate a rest request, and it will send it to the server. The equivalent CURL command will also be provided.
 
 How to run this project
-- copy the file "getpaymentgateway.bat" to your computer - save it in the workspace folder e.g. W:\workspace
+- copy the file  <a href="https://raw.githubusercontent.com/vppmatt/paymentgateway-standalone/main/getpaymentgateway.bat" download>getpaymentgateway.bat</a> to your computer - save it in the workspace folder e.g. W:\workspace
 - Open a command prompt 
 - navigate to the workspace folder, type "getpaymentgateway" and press enter
 - Fetch the dependencies defined in the POM.XML file and run the application
