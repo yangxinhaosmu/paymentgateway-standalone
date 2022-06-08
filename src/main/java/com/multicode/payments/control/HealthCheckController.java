@@ -17,16 +17,6 @@ public class HealthCheckController {
         return "ok";
     }
 
-    @GetMapping("/sample")
-    public CreditCardTransaction sample() {
-        CreditCardTransaction ccTransaction = new CreditCardTransaction();
-        ccTransaction.setAmount(23.50);
-        ccTransaction.setCountry("USA");
-        ccTransaction.setCurrency("USD");
-        ccTransaction.setDate(LocalDate.now());
-        return ccTransaction;
-    }
-
     @GetMapping("/errortest")
     public Object testingStatusCodes(HttpServletResponse response) {
         response.setStatus(406);

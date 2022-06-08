@@ -7,10 +7,12 @@ import java.util.*;
 
 public interface CCUtilsService {
 
-    public List<CreditCardTransaction> getAllTransactions();
-    public CreditCardTransaction getById(int id);
-    public List<CreditCardTransaction> getAllForAnOrder(String orderId);
-    public List<CreditCardTransaction> getAllForACountry(String country);
+    List<CreditCardTransaction> getAllTransactions();
+    CreditCardTransaction getById(int id);
+    List<CreditCardTransaction> getAllForAnOrder(String orderId);
+    List<CreditCardTransaction> getAllForACountry(String country);
 
-    public CreditCardTransaction saveTransaction(CreditCardTransaction ccTransaction);
+    CreditCardTransaction saveTransaction(CreditCardTransaction ccTransaction);
+
+    CreditCardTransaction updateTransaction(Integer id, Map<String,Object>  updatedTransaction);
 }

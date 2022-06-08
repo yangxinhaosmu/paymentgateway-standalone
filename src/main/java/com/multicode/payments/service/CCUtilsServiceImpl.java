@@ -2,6 +2,7 @@ package com.multicode.payments.service;
 
 import com.multicode.payments.data.*;
 import com.multicode.payments.domain.*;
+import com.multicode.payments.exception.BadRequestException;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
@@ -37,5 +38,40 @@ public class CCUtilsServiceImpl implements CCUtilsService {
 
     public CreditCardTransaction saveTransaction(CreditCardTransaction ccTransaction) {
         return ccTransactionRepository.save(ccTransaction);
+    }
+
+    @Override
+    public CreditCardTransaction updateTransaction(Integer id, Map<String,Object>  updatedTransaction) {
+        System.out.println(id);
+        Optional<CreditCardTransaction> transactionOptional = ccTransactionRepository.findById(id);
+        if (!transactionOptional.isPresent()) {
+            throw new BadRequestException("No item found with id " + id);
+        }
+        CreditCardTransaction transaction = transactionOptional.get();
+        if (updatedTransaction.get("amount") != null) {
+            transaction.setAmount(Double.parseDouble(updatedTransaction.get("amount").toString()));
+        }
+        if (updatedTransaction.get("country") != null) {
+            transaction.setCountry(updatedTransaction.get("country").toString());
+        }
+        if (updatedTransaction.get("currency") != null) {
+            transaction.setCurrency(updatedTransaction.get("currency").toString());
+        }
+        if (updatedTransaction.get("orderId") != null) {
+            transaction.setOrderId(updatedTransaction.get("orderId").toString());
+        }
+        if (updatedTransaction.get("type") != null) {
+            transaction.setType(updatedTransaction.get("type").toString());
+        }
+        if (updatedTransaction.get("taxCode") != null) {
+            transaction.setTaxCode(Integer.parseInt(updatedTransaction.get("taxCode").toString()));
+        }
+        if (updatedTransaction.get("taxRate") != null) {
+            transaction.setTaxRate(Double.parseDouble(updatedTransaction.get("taxRate").toString()));
+        }
+
+        ccTransactionRepository.save(transaction);
+
+        return transaction;
     }
 }

@@ -42,6 +42,18 @@ public class CreditCardTransaction {
         this.type = fields[8].replaceAll("'", "").replace(")", "").trim();
     }
 
+    public CreditCardTransaction(CreditCardTransactionDTO dto) {
+        this.id = null;
+        this.amount = dto.getAmount();
+        this.country = dto.getCountry();
+        this.currency = dto.getCurrency();
+        this.date = LocalDate.now();
+        this.orderId = dto.getOrderId();
+        this.taxCode = dto.getTaxCode();
+        this.taxRate = dto.getTaxRate();
+        this.type = dto.getType();
+    }
+
     public Integer getId() {
         return id;
     }
