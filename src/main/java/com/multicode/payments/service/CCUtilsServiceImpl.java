@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class CCUtilsServiceImpl implements CCUtilsService {
@@ -73,5 +74,10 @@ public class CCUtilsServiceImpl implements CCUtilsService {
         ccTransactionRepository.save(transaction);
 
         return transaction;
+    }
+
+    @Override
+    public List<String> getAllCountries() {
+        return ccTransactionRepository.findAll().stream().map(it -> it.getCountry()).distinct().collect(Collectors.toList());
     }
 }

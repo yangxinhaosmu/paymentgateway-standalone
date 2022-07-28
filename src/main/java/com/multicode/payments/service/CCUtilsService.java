@@ -15,4 +15,6 @@ public interface CCUtilsService {
     CreditCardTransaction saveTransaction(CreditCardTransaction ccTransaction);
 
     CreditCardTransaction updateTransaction(Integer id, Map<String,Object>  updatedTransaction);
+
+    List<String> getAllCountries();
 }
