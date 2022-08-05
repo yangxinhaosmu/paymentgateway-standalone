@@ -14,12 +14,12 @@ public class HealthCheckController {
 
     @GetMapping("/health")
     public String systemIsHealthy() {
-        return "ok";
+        return "{\"status\":\"ok\"}";
     }
 
-    @GetMapping("/errortest")
-    public Object testingStatusCodes(HttpServletResponse response) {
-        response.setStatus(406);
-        return null;
-    }
+//    @GetMapping("/errortest")
+//    public Object testingStatusCodes(HttpServletResponse response) {
+//        response.setStatus(406);
+//        return null;
+//    }
 }

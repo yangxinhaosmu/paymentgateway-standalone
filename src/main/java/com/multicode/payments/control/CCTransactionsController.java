@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.multicode.payments.domain.*;
 import com.multicode.payments.exception.*;
 import com.multicode.payments.service.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Tag;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +19,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/payment")
 @CrossOrigin
+@Api(value = "/api/payment",  description = "Get and retrieve payment records")
 public class CCTransactionsController {
 
     @Autowired
@@ -23,6 +27,10 @@ public class CCTransactionsController {
 
     @ResponseBody
     @GetMapping(produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    @ApiOperation(value = "Retrieves payments",
+            notes = "Use order=xxx or country=xxx as a query string to restrict the results, or leave blank for all records",
+            response = CreditCardTransaction.class,
+            responseContainer = "List")
     public Object mappingFunctionForGetAllAndSearch(
             @RequestParam(value ="order", required = false) String orderId,
             @RequestParam(value ="country", required = false) String country) {
@@ -51,6 +59,9 @@ public class CCTransactionsController {
 
     @ResponseBody
     @GetMapping(value="/{id}",  produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    @ApiOperation(value = "Retrieves a specific payment",
+            notes = "Provide the payment record ID (not the order ID)",
+            response = CreditCardTransaction.class)
     public CreditCardTransaction getById(@PathVariable Integer id) {
         return service.getById(id);
     }
