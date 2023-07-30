@@ -17,9 +17,24 @@ public class HealthCheckController {
         return "{\"status\":\"ok\"}";
     }
 
-//    @GetMapping("/errortest")
-//    public Object testingStatusCodes(HttpServletResponse response) {
-//        response.setStatus(406);
-//        return null;
-//    }
+    @PostMapping("/restart")
+    public String restartSystem(@RequestBody Map<String, String> body, HttpServletRequest request) {
+        if (body.containsKey("pw")) {
+            if (!body.get("pw").equals("restartnow")) {
+                return "{\"status\":\"error\", \"message\":\"Invalid password\"}";
+            }
+            else {
+                String ipAddress = request.getRemoteAddr();
+                System.out.println("Restart requested by: " + ipAddress);
+                System.exit(0);
+                return "{\"status\":\"ok\"}";
+            }
+        }
+        else {
+            return "{\"status\":\"error\", \"message\":\"No password supplied\"}";
+        }
+
+    }
+
+
 }
